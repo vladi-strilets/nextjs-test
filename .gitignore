@@ -38,3 +38,6 @@ next-env.d.ts
 # envs
 .env*
 !.env.example
+
+# vscode workspace settings 
+.vscode
