@@ -1,5 +1,6 @@
 "use client";
 
+import { logRender } from "@/utils/logRender";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 
@@ -10,6 +11,8 @@ const DynamicPokemonSection = dynamic(() =>
   )
 );
 const PokemonPage = () => {
+  logRender("PokemonPage");
+
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
 
