@@ -62,7 +62,7 @@ export default async function NewsPage(props: NewsPageProps) {
   // notFound() is not needed, as we have set config dynamicParams = false
 
   if (error) {
-    console.error("Error fetching news data", error);
+    console.error("Error fetching news data", error?.message);
     return null;
   }
 

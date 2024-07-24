@@ -40,7 +40,8 @@ const PokemonPage = () => {
       <p className="text-2xl font-bold">Name or Id: {name}</p>
       <p>
         This page was rendered completely on the client side. You can check the
-        network response and see that the initial response has empty page
+        network response and see that the initial response was an empty page.
+        And then the content has been dynamically loaded.
       </p>
       {renderContent()}
     </div>

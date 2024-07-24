@@ -8,7 +8,10 @@ export class ResponseError extends Error {
     this.response = res;
   }
 }
-
+/**
+ *
+ * @description This function is a wrapper around the fetch API that handles errors and returns the data in a structured way.
+ */
 export const smartFetch = async <T>(
   input: RequestInfo | URL,
   init?: RequestInit
