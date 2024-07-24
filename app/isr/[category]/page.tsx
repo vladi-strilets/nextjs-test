@@ -4,22 +4,11 @@
 // This API will require you to create an account to get an API key.
 
 import { ServerSidePageProp } from "@/types/types";
-import { smartFetch } from "@/utils/smartFetch";
-import { type Article, ArticleCard } from "./components/ArticleCard";
 import { logRender } from "@/utils/logRender";
 import Link from "next/link";
+import { ArticleCard } from "./components/ArticleCard";
+import { getNews } from "./utils/getNews";
 
-type NewsResponse = {
-  status: string;
-  totalResults: number;
-  articles: Article[];
-};
-
-const BASE_URL = "https://newsapi.org";
-const NEWS_API_VERSION = "v2";
-const NEWS_TOP_HEADLINES_PATH = "top-headlines";
-
-const country = "us"; // we hardcode the country, but can be also a query param
 const categories = [
   "business",
   "entertainment",
@@ -35,20 +24,6 @@ export function generateStaticParams() {
   const paths = categories.map((category) => ({ category }));
   return paths;
 }
-
-const getNews = async (category: string) => {
-  const url = `${BASE_URL}/${NEWS_API_VERSION}/${NEWS_TOP_HEADLINES_PATH}?country=${country}&category=${category}`;
-
-  return await smartFetch<NewsResponse>(url, {
-    headers: {
-      // we force the type, but in a real app we would check if the env var is presented before running the app
-      Authorization: process.env.ISR_NEWS_API_KEY!,
-    },
-    next: {
-      revalidate: 60, // let's set the revalidation time to 1 minute, we will see the X-Nextjs-Cache: STALE response after 1 min
-    },
-  });
-};
 
 type NewsPageProps = ServerSidePageProp<{ category: string }>;
 export default async function NewsPage(props: NewsPageProps) {

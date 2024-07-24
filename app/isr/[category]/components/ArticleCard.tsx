@@ -17,6 +17,7 @@ export type Article = {
 export const ArticleCard = ({ article }: { article: Article }) => {
   return (
     <div key={article.url} className="bg-white rounded-lg shadow-md">
+      {/* TODO: use next Link component */}
       {article.urlToImage && (
         <img
           src={article.urlToImage}
