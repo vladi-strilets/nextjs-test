@@ -32,7 +32,7 @@ export default async function NewsPage(props: NewsPageProps) {
   const { params } = props;
   const { category } = params;
 
-  const { data: news, error } = await getNews(category);
+  const { data: news, error } = await getNews(category.toLowerCase());
 
   // notFound() is not needed, as we have set config dynamicParams = false
 

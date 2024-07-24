@@ -42,6 +42,11 @@ export default async function PostPage(props: PostPageProps) {
   const { params } = props;
   const { id } = params;
 
+  // check if id is a number
+  if (isNaN(Number(id))) {
+    notFound();
+  }
+
   const { data: post, error } = await getPost(id);
 
   if (error) {

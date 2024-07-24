@@ -36,7 +36,7 @@ export const PokemonSection = (props: PokemonSectionProps) => {
 
   const fetchData = useCallback(async () => {
     try {
-      const { data, error } = await getPokemon(name);
+      const { data, error } = await getPokemon(name.toLowerCase());
       if (error) {
         setError(error);
       } else {

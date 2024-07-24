@@ -36,6 +36,11 @@ export default async function CharacterPage(props: CharacterPageProps) {
   const { params } = props;
   const { id } = params;
 
+  // check if id is a number
+  if (isNaN(Number(id))) {
+    notFound();
+  }
+
   const { data: character, error } = await fetchCharacter(id);
 
   if (error) {
