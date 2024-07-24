@@ -2,6 +2,7 @@
 // Use SWAPI (https://swapi.dev) to fetch character data by ID.
 
 import { ServerSidePageProp } from "@/types/types";
+import { logRender } from "@/utils/logRender";
 import { ResponseError, smartFetch } from "@/utils/smartFetch";
 import { notFound } from "next/navigation";
 
@@ -21,13 +22,16 @@ const CHARACTER_DATA_PATH = "people";
 
 const fetchCharacter = async (id: string) =>
   await smartFetch<Character>(`${BASE_URL}/${CHARACTER_DATA_PATH}/${id}`, {
-    // no store cache config makes a request on each page view, aka SSR
-    cache: "no-store",
+    // let's skip the cache and fetch a fresh data on each request
+    // as we have set a revalidate const to 0, this fetch will skip the cache
+    // cache: "no-store",
   });
 
 type CharacterPageProps = ServerSidePageProp<{ id: string }>;
 
 export default async function CharacterPage(props: CharacterPageProps) {
+  logRender("CharacterPage");
+
   const { params } = props;
   const { id } = params;
 
@@ -58,3 +62,8 @@ export default async function CharacterPage(props: CharacterPageProps) {
     </div>
   );
 }
+
+// NOTE: for some reason the dynamic export doesn't skip the cache
+// export const dynamic = "force-dynamic";
+
+export const revalidate = 0;
